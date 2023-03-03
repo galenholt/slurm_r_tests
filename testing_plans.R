@@ -41,8 +41,14 @@ for (planname in plannames) {
   cat(paste0("\n## ", planname, "\n"))
   plan(planname)
   
-  cat('\n### available Workers:\n')
+  cat('\n### available workers:\n')
   cat(availableWorkers(), sep = "\n")
+  cat('\n### total workers:\n')
+  cat(length(availableWorkers()))
+  cat('\n### unique workers:\n')
+  cat(unique(availableWorkers()))
+  
+  
   
   cat('\n### available Cores:\n')
   cat("\n#### non-slurm\n")
@@ -58,7 +64,7 @@ for (planname in plannames) {
   
   cat('\n### Unique processes\n')
   cat(length(unique(looptib$pid)))
-  cat("\n\nThis should be the IDs of all cores used\n\n")
+  cat("\n\nIDs of all cores used\n\n")
   cat(unique(looptib$pid), sep = "\n")
   
   # cat('\n## Full loop data\n')
