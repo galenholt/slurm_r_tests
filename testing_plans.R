@@ -58,12 +58,12 @@ for (planname in plannames) {
   
   cat('\n## Unique processes\n')
   cat(length(unique(looptib$pid)))
-  cat("\nThis should be the IDs of all cores used\n")
+  cat("\n\nThis should be the IDs of all cores used\n\n")
   cat(unique(looptib$pid), sep = "\n")
   
   # cat('\n## Full loop data\n')
   # print(looptib)
-  # cat("\n")
+  cat("\n")
   
 }
 
