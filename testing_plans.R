@@ -18,10 +18,26 @@ registerDoFuture()
 # # basically, according to 
 # # https://future.batchtools.futureverse.org/ 
 
-
 plannames <- c('sequential', 'multisession', 'multicore')
 
-for (i in 1:length(plannames)) {
+# The loopings
+nest_test <- function(outer_size, inner_size, planname) {
+  outer_out <- foreach(i = 1:outer_size,
+                       .combine = bind_rows) %:% 
+    foreach(j = 1:inner_size,
+            .combine = bind_rows) %dopar% {
+              
+              thisproc <- tibble(plan = planname,
+                                 outer_iteration = i,
+                                 inner_iteration = j, 
+                                 pid = Sys.getpid())
+            }
+  
+  return(outer_out)
+}
+
+
+for (planname in plannames) {
   print(paste0("# ", planname))
   plan(planname)
   
@@ -38,7 +54,7 @@ for (i in 1:length(plannames)) {
   print('## Main PID:')
   print(Sys.getpid())
   
-  looptib <- nest_test(25, 25)
+  looptib <- nest_test(25, 25, planname)
   
   print('## Unique processes')
   print(length(unique(looptib$pid)))
@@ -46,7 +62,7 @@ for (i in 1:length(plannames)) {
   print(unique(looptib$pid))
   
   print('## Full loop data')
-  print(processtest)
+  print(looptib)
   
   
 }
