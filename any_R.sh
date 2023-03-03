@@ -7,15 +7,15 @@
 #SBATCH --nodes=2 # number of nodes. Need > 1 to test utilisation
 #SBATCH --ntasks-per-node=12 # Cores per node
 
-#SBATCH -o test_%A_%a.out # Standard output
-#SBATCH -e test_core_%A_%a.err # Standard error
+#SBATCH -o %x_%A_%a.out # Standard output
+#SBATCH -e %x_%A_%a.err # Standard error
 
 # timing
 begin=`date +%s`
 
 module load R
 
-Rscript $1
+Rscript $*
 
 
 end=`date +%s`
