@@ -1,0 +1,1 @@
+cat(commandArgs(), sep = "\n")
