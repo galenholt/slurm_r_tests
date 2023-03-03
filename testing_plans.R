@@ -38,32 +38,32 @@ nest_test <- function(outer_size, inner_size, planname) {
 
 
 for (planname in plannames) {
-  print(paste0("\n# ", planname, "\n"))
+  cat(paste0("\n# ", planname, "\n"))
   plan(planname)
   
-  print('\n## available Workers:\n')
-  print(availableWorkers())
+  cat('\n## available Workers:\n')
+  cat(availableWorkers(), sep = "\n")
   
-  print('\n## available Cores:\n')
-  print("\n### non-slurm\n")
-  print(availableCores())
-  print("\n### slurm method\n")
-  print(availableCores(methods = 'Slurm'))
+  cat('\n## available Cores:\n')
+  cat("\n### non-slurm\n")
+  cat(availableCores(), sep = "\n")
+  cat("\n### slurm method\n")
+  cat(availableCores(methods = 'Slurm'), sep = "\n")
   
   # base R process id
-  print('\n## Main PID:\n')
-  print(Sys.getpid())
+  cat('\n## Main PID:\n')
+  cat(Sys.getpid(), sep = "\n")
   
   looptib <- nest_test(25, 25, planname)
   
-  print('\n## Unique processes\n')
-  print(length(unique(looptib$pid)))
-  print("\nThis should be the IDs of all cores used\n")
-  print(unique(looptib$pid))
+  cat('\n## Unique processes\n')
+  cat(length(unique(looptib$pid)))
+  cat("\nThis should be the IDs of all cores used\n")
+  cat(unique(looptib$pid), sep = "\n")
   
-  print('\n## Full loop data\n')
-  print(looptib)
-  print("\n")
+  # cat('\n## Full loop data\n')
+  # print(looptib)
+  # cat("\n")
   
 }
 
