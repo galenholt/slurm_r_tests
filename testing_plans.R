@@ -18,7 +18,9 @@ registerDoFuture()
 # # basically, according to 
 # # https://future.batchtools.futureverse.org/ 
 
-plannames <- c('sequential', 'multisession', 'multicore')
+scriptargs <- commandArgs()
+plannames <- scriptargs[6:length(scriptargs)]
+# plannames <- c('sequential', 'multisession', 'multicore')
 
 # The loopings
 nest_test <- function(outer_size, inner_size, planname) {
