@@ -43,14 +43,14 @@ for (planname in plannames) {
   
   cat('\n### available workers:\n')
   cat(availableWorkers(), sep = "\n")
-  cat('\n### total workers:\n')
+  cat('\n\n### total workers:\n')
   cat(length(availableWorkers()))
-  cat('\n### unique workers:\n')
+  cat('\n\n### unique workers:\n')
   cat(unique(availableWorkers()))
   
   
   
-  cat('\n### available Cores:\n')
+  cat('\n\n### available Cores:\n')
   cat("\n#### non-slurm\n")
   cat(availableCores(), sep = "\n")
   cat("\n#### slurm method\n")
