@@ -61,5 +61,8 @@ cat("\n\nIDs of all cores used\n\n")
 cat(unique(looptib$pid), sep = "\n")
 
 cat('\n## Nodes and pids\n')
-print(looptib %>% group_by(node, pid) %>% summarize(n_reps = n()))
+looptib %>% 
+  group_by(node, pid) %>% 
+  summarize(n_reps = n()) %>% 
+  print(n = Inf)
 cat("\n")
