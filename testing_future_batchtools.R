@@ -3,6 +3,7 @@
 library(dplyr)
 library(tibble)
 library(doFuture)
+library(future.batchtools)
 registerDoFuture()
 
 # I'll use the same simple nested testing function as in `testing_plans.R`, at
