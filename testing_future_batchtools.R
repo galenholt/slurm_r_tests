@@ -26,7 +26,12 @@ nest_test <- function(outer_size, inner_size, planname) {
 }
 
 # Declare the plan and see what it is
-plan(batchtools_slurm)
+# Let's pass the template path in as an argument, or set to NULL (autochoose)
+scriptargs <- commandArgs()
+if (length(scriptargs) > 5) {temp_path <- scriptargs[6]} else {temp_path = NULL}
+
+
+plan(batchtools_slurm, template = temp_path)
 
 cat("\n Plan is:\n")
 
