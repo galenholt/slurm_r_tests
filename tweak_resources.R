@@ -16,10 +16,14 @@ nest_test <- function(outer_size, inner_size, planname) {
     foreach(j = 1:inner_size,
             .combine = bind_rows) %dopar% {
               
-              thisproc <- tibble(node = Sys.getenv("SLURMD_NODENAME"),
+              thisproc <- tibble(all_job_nodes = paste(Sys.getenv("SLURM_JOB_NODELIST"),
+                                                  collapse = ","),
+                                 node = Sys.getenv("SLURMD_NODENAME"),
                                  outer_iteration = i,
                                  inner_iteration = j, 
-                                 pid = Sys.getpid())
+                                 pid = Sys.getpid(),
+                                 taskid = Sys.getenv("SLURM_LOCALID"),
+                                   cpus_avail = Sys.getenv("SLURM_JOB_CPUS_PER_NODE"))
             }
   
   return(outer_out)
@@ -72,7 +76,7 @@ cat(unique(looptib$pid), sep = "\n")
 
 cat('\n## Nodes and pids\n')
 looptib %>% 
-  group_by(node, pid) %>% 
+  group_by(all_job_nodes, node, pid, taskid, cpus_avail) %>% 
   summarize(n_reps = n()) %>% 
   print(n = Inf)
 cat("\n")
