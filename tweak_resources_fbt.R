@@ -37,7 +37,8 @@ nest_test <- function(outer_size, inner_size, planname) {
 plan(tweak(batchtools_slurm,
            template = "./batchtools_templates/slurm.tmpl",
            resources = list(time = "0:05:00",
-                            mem = "1GB")))
+                            mem = "1GB",
+                            `ntasks-per-node` = 12)))
 
 cat("\n Plan is:\n")
 

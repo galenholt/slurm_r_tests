@@ -36,7 +36,7 @@ nest_test <- function(outer_size, inner_size, planname) {
 
 plan(tweak(batchtools_slurm,
            template = "./batchtools_templates/slurm-simple.tmpl",
-           resources = list(ncpus = 12,
+           resources = list(ncpus = 12, # This claims 12 cpus, but only one gets used in the code here
                             memory = 1000,
                             walltime=60*5)))
 
