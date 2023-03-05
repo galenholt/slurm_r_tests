@@ -17,30 +17,27 @@ nest_test <- function(outer_size, inner_size, planname) {
             .combine = bind_rows) %dopar% {
               
               thisproc <- tibble(all_job_nodes = paste(Sys.getenv("SLURM_JOB_NODELIST"),
-                                                  collapse = ","),
+                                                       collapse = ","),
                                  node = Sys.getenv("SLURMD_NODENAME"),
                                  outer_iteration = i,
                                  inner_iteration = j, 
                                  pid = Sys.getpid(),
                                  taskid = Sys.getenv("SLURM_LOCALID"),
-                                   cpus_avail = Sys.getenv("SLURM_JOB_CPUS_PER_NODE"))
+                                 cpus_avail = Sys.getenv("SLURM_JOB_CPUS_PER_NODE"))
             }
   
   return(outer_out)
 }
 
 # Declare the plan and see what it is
-# Let's pass the template path in as an argument, or set to NULL (autochoose)
-scriptargs <- commandArgs()
-if (length(scriptargs) > 5) {temp_path <- scriptargs[6]} else {temp_path = NULL}
 
+# Because `resources` gets parsed into the template, it's template-specific. So
+# set the template here
 
 plan(tweak(batchtools_slurm,
-           template = temp_path,
-           resources = list(ncpus = 12,
-                            memory = 1000,
-                            walltime=60*5,
-                            nodes=1)))
+           template = "./batchtools_templates/slurm.tmpl",
+           resources = list(time = "0:05:00",
+                            mem = "1GB")))
 
 cat("\n Plan is:\n")
 
