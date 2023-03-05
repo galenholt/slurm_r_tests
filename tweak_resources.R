@@ -34,8 +34,8 @@ if (length(scriptargs) > 5) {temp_path <- scriptargs[6]} else {temp_path = NULL}
 plan(tweak(batchtools_slurm,
            template = temp_path,
            resources = list(ncpus = 12,
-                            memory = "1GB",
-                            walltime="0:05:00",
+                            memory = 1000,
+                            walltime=60*5,
                             nodes=1)))
 
 cat("\n Plan is:\n")
