@@ -34,11 +34,15 @@ nest_test <- function(outer_size, inner_size, planname) {
 # Because `resources` gets parsed into the template, it's template-specific. So
 # set the template here
 
+# I can't use non-standard names, so there are some things I can't set unless I
+# use the method in `slurm-simple.tmpl` and map a name in resources to a slurm
+# name in the template
+
 plan(tweak(batchtools_slurm,
            template = "./batchtools_templates/slurm.tmpl",
            resources = list(time = "0:05:00",
-                            mem = "1GB",
-                            `ntasks-per-node` = 12)))
+                            # "ntasks-per-node" = 12, 
+                            mem = "1GB")))
 
 cat("\n Plan is:\n")
 
