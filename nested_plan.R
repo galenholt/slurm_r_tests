@@ -114,6 +114,13 @@ looptib %>%
   print(n = Inf)
 cat("\n")
 
+cat('\n## Each PID could get used for multiple jobs potentially\n')
+looptib %>% 
+  group_by(outer_pid, inner_pid) %>% 
+  summarise(n_reps = n()) %>% 
+  print(n = Inf)
+cat("\n")
+
 cat("\n## Nodes and PIDS more info\n")
 looptib %>% 
   group_by(all_job_nodes, node, outer_pid, taskid, cpus_avail) %>% 
