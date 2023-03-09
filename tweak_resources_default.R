@@ -9,18 +9,29 @@ registerDoFuture()
 # Because `resources` gets parsed into the template, it's template-specific. So
 # set the template here
 
-# I can't use non-standard names, so there are some things I can't set unless I
-# use the method in `slurm-simple.tmpl` and map a name in resources to a slurm
-# name in the template
+# With my new template, I can now pass any slurm argument names. But if I want
+# to use those with '-', I need to replace it with '.' in its name in
+# `resources`
 
 
-# Declare the plan and see what it is
+# Declare the plan and see what it is. I should be able to use any of the
+# argument formats SLURM accepts. E.g. both time = "0:05:00" and time = 5 should
+# both work
+# This works.
+# plan(tweak(batchtools_slurm,
+#            template = "batchtools.slurm.tmpl",
+#            resources = list(time = "0:05:00",
+#                             ntasks.per.node = 12, 
+#                             mem = "1GB",
+#                             job.name = 'NewName')))
+
 plan(tweak(batchtools_slurm,
            template = "batchtools.slurm.tmpl",
-           resources = list(time = "0:05:00",
+           resources = list(time = 5,
                             ntasks.per.node = 12, 
-                            mem = "1GB",
+                            mem = 1000,
                             job.name = 'NewName')))
+
 
 cat("\n Plan is:\n")
 
