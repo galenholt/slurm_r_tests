@@ -131,6 +131,18 @@
         "iterators"
       ]
     },
+    "doRNG": {
+      "Package": "doRNG",
+      "Version": "1.8.6",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "e207fea8a4991e49c7244001746e3232",
+      "Requirements": [
+        "foreach",
+        "iterators",
+        "rngtools"
+      ]
+    },
     "dplyr": {
       "Package": "dplyr",
       "Version": "1.1.0",
@@ -365,6 +377,16 @@
       "Repository": "CRAN",
       "Hash": "4ed1f8336c8d52c3e750adcdc57228a7",
       "Requirements": []
+    },
+    "rngtools": {
+      "Package": "rngtools",
+      "Version": "1.5.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "367a915f939520767660671efa0e32bd",
+      "Requirements": [
+        "digest"
+      ]
     },
     "stringi": {
       "Package": "stringi",
