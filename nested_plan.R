@@ -13,14 +13,23 @@ registerDoFuture()
 # Declare the plan and see what it is. I should be able to use any of the
 # argument formats SLURM accepts. E.g. both time = "0:05:00" and time = 5 should
 # both work
+# plan(list(tweak(batchtools_slurm,
+#                 template = "batchtools.slurm.tmpl",
+#                 resources = list(time = 5,
+#                                  ntasks.per.node = 12, 
+#                                  mem = 1000,
+#                                  job.name = 'NewName')),
+#           multicore))
+
+# A version with `workers` declared, rather than the default 100
 plan(list(tweak(batchtools_slurm,
+                workers = 5,
                 template = "batchtools.slurm.tmpl",
-                resources = list(time = 5,
+                resources = list(time = 15,
                                  ntasks.per.node = 12, 
                                  mem = 1000,
                                  job.name = 'NewName')),
           multicore))
-
 
 cat("\n Plan is:\n")
 
