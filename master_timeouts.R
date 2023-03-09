@@ -9,7 +9,7 @@ registerDoFuture()
 # Declare the plan and see what it is. I should be able to use any of the
 plan(tweak(batchtools_slurm,
            template = "batchtools.slurm.tmpl",
-           resources = list(time = "0:02:00",
+           resources = list(time = "0:03:00", # bumping up because adding sys.sleep()
                             ntasks.per.node = 1,
                             mem = 200, # MB by default
                             job.name = 'mastertest')))
@@ -42,6 +42,8 @@ nest_test <- function(outer_size, inner_size, planname) {
                                     paste0('outer_loop_', i, 
                                            'inner_loop_', j, '.txt')))
               
+              # PAUSE to test master dying in the middle- it currently has 60 seconds, so let's pause longer than that.
+              Sys.sleep(70)
               thisproc <- tibble(all_job_nodes = paste(Sys.getenv("SLURM_JOB_NODELIST"),
                                                        collapse = ","),
                                  node = Sys.getenv("SLURMD_NODENAME"),
@@ -64,7 +66,7 @@ nest_test <- function(outer_size, inner_size, planname) {
   return(outer_out)
 }
 
-# We likely won't get to this bit- that's the point. But if we do, it's here.
+# This top bit is setup- it'll happen quickly
 
 # What do we see for resources *before* we call anything?
 cat('\n### available workers:\n')
@@ -86,8 +88,16 @@ cat(availableCores(methods = 'Slurm'), sep = "\n")
 cat('\n### Main PID:\n')
 cat(Sys.getpid(), sep = "\n")
 
+
+# THE LOOP ----------------------------------------------------------------
+
+
 # The loop
 looptib <- nest_test(25, 25, planname)
+
+
+# PRINTING OUTPUT ---------------------------------------------------------
+
 
 cat('\n### Unique processes\n')
 cat(length(unique(looptib$pid)))

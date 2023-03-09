@@ -12,6 +12,7 @@
 
 # timing
 begin=`date +%s`
+echo begin
 
 module load R
 
